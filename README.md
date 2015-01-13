@@ -4,7 +4,7 @@ Some useful bash scripts
 ## cppclass.sh
 Automatically creates pre-formatted .h and .cpp file according to class name and namespaces
 
-	./cppclass.sh Day_01::Ex_01::MyClass
+	$ ./cppclass.sh Day_01::Ex_01::MyClass
 	
 Results in:
 ####MyClass.h
