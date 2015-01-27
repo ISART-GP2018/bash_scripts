@@ -16,14 +16,16 @@ while true; do
     fi
 done
 
-PATH=""
+LOCALPATH=""
 for (( i = 0 ; i < ${#NAMESPACES[@]} ; i++ )) do
-	PATH="$PATH${NAMESPACES[$i]}/"
+	LOCALPATH="$LOCALPATH${NAMESPACES[$i]}/"
 done
 
-SRCPATH=src/${PATH}${CLASS}.cpp
-HEADERPATH=includes/${PATH}${CLASS}.hpp
+SRCPATH=src/${LOCALPATH}${CLASS}.cpp
+HEADERPATH=includes/${LOCALPATH}${CLASS}.hpp
 
+mkdir -p "src/${LOCALPATH}"
+mkdir -p "includes/${LOCALPATH}"
 
 # HEADER FILE
 # ===========
@@ -63,7 +65,7 @@ echo -e "#endif // __${CLASS^^}_H_INCLUDED__" >> ${HEADERPATH}
 # SOURCE FILE
 # ===========
 
-echo -e "#include \"${PATH}${CLASS}.hpp\"" > ${SRCPATH}
+echo -e "#include \"${LOCALPATH}${CLASS}.hpp\"" > ${SRCPATH}
 echo -e "" >> ${SRCPATH}
 
 if [ $NAMESPACE_COUNT -gt 0 ]
