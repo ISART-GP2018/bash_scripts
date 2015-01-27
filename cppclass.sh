@@ -16,63 +16,68 @@ while true; do
     fi
 done
 
+PATH=""
+for (( i = 0 ; i < ${#NAMESPACES[@]} ; i++ )) do
+	PATH="$PATH${NAMESPACES[$i]}/"
+done
+
+SRCPATH=src/${PATH}${CLASS}.cpp
+HEADERPATH=includes/${PATH}${CLASS}.hpp
+
 
 # HEADER FILE
 # ===========
 
-echo -e "#ifndef __${CLASS^^}_H_INCLUDED__" > ${CLASS}.h
-echo -e "#define __${CLASS^^}_H_INCLUDED__" >> ${CLASS}.h
-echo -e "" >> ${CLASS}.h
+echo -e "#ifndef __${CLASS^^}_H_INCLUDED__" > ${HEADERPATH}
+echo -e "#define __${CLASS^^}_H_INCLUDED__" >> ${HEADERPATH}
+echo -e "" >> ${HEADERPATH}
 
 if [ $NAMESPACE_COUNT -gt 0 ]
 then
     for (( i = 0 ; i < ${#NAMESPACES[@]} ; i++ )) do
-        echo -e "namespace ${NAMESPACES[$i]} {" >> ${CLASS}.h
+        echo -e "namespace ${NAMESPACES[$i]} {" >> ${HEADERPATH}
     done
-    echo -e "\n" >> ${CLASS}.h
+    echo -e "\n" >> ${HEADERPATH}
 fi
 
-echo -e "class $CLASS {" >> ${CLASS}.h
-echo -e "public:" >> ${CLASS}.h
-echo -e "    $CLASS() = default;" >> ${CLASS}.h
-echo -e "    ~$CLASS() = default;" >> ${CLASS}.h
-echo -e "" >> ${CLASS}.h
-echo -e "};" >> ${CLASS}.h
+echo -e "class $CLASS" >> ${HEADERPATH}
+echo -e "{" >> ${HEADERPATH}
+echo -e "public:" >> ${HEADERPATH}
+echo -e "    $CLASS() = default;" >> ${HEADERPATH}
+echo -e "    ~$CLASS() = default;" >> ${HEADERPATH}
+echo -e "" >> ${HEADERPATH}
+echo -e "};" >> ${HEADERPATH}
 
 if [ $NAMESPACE_COUNT -gt 0 ]
 then
-    echo -e "\n" >> ${CLASS}.h
+    echo -e "\n" >> ${HEADERPATH}
     for (( i = $((NAMESPACE_COUNT)) ; i > 0 ; i-- )) do
-        echo -e "} // namespace ${NAMESPACES[$(($i - 1))]}" >> ${CLASS}.h
+        echo -e "} // namespace ${NAMESPACES[$(($i - 1))]}" >> ${HEADERPATH}
     done
 fi
 
-echo -e "" >> ${CLASS}.h
-echo -e "#endif // __${CLASS^^}_H_INCLUDED__" >> ${CLASS}.h
+echo -e "" >> ${HEADERPATH}
+echo -e "#endif // __${CLASS^^}_H_INCLUDED__" >> ${HEADERPATH}
 
 
 # SOURCE FILE
 # ===========
 
-echo -e "#include \"${CLASS}.h\"" > ${CLASS}.cpp
-echo -e "" >> ${CLASS}.cpp
+echo -e "#include \"${PATH}${CLASS}.hpp\"" > ${SRCPATH}
+echo -e "" >> ${SRCPATH}
 
 if [ $NAMESPACE_COUNT -gt 0 ]
 then
     for (( i = 0 ; i < ${#NAMESPACES[@]} ; i++ )) do
-        echo -e "namespace ${NAMESPACES[$i]} {" >> ${CLASS}.cpp
+        echo -e "namespace ${NAMESPACES[$i]} {" >> ${SRCPATH}
     done
-    echo -e "\n" >> ${CLASS}.cpp
+    echo -e "\n" >> ${SRCPATH}
 fi
-
-echo -e "class $CLASS {" >> ${CLASS}.cpp
-echo -e "" >> ${CLASS}.cpp
-echo -e "}" >> ${CLASS}.cpp
 
 if [ $NAMESPACE_COUNT -gt 0 ]
 then
-    echo -e "\n" >> ${CLASS}.cpp
+    echo -e "\n" >> ${SRCPATH}
     for (( i = $((NAMESPACE_COUNT)) ; i > 0 ; i-- )) do
-        echo -e "} // namespace ${NAMESPACES[$(($i - 1))]}" >> ${CLASS}.cpp
+        echo -e "} // namespace ${NAMESPACES[$(($i - 1))]}" >> ${SRCPATH}
     done
 fi
