@@ -16,7 +16,7 @@ Automatically creates pre-formatted .h and .cpp file according to class name and
 	$ ./cppclass.sh Day_01::Ex_01::MyClass
 	
 Results in:
-####MyClass.h
+#### includes/Day_01/Ex_01/MyClass.hpp
 
 	#ifndef __MYCLASS_H_INCLUDED__
 	#define __MYCLASS_H_INCLUDED__
@@ -25,7 +25,10 @@ Results in:
 	namespace Ex_01 {
 
 	class MyClass {
-
+	public:
+		MyClass() = default;
+		~MyClass() = default;
+		
 	}
 
 
@@ -34,16 +37,12 @@ Results in:
 	
 	#endif // __MYCLASS_H_INCLUDED__
   
-#### MyClass.cpp
-	#include "MyClass.h"
+#### src/Day_01/Ex_01/MyClass.cpp
+	#include "Day01/Ex_01/MyClass.hpp"
 	
 	namespace Day_01 {
 	namespace Ex_01 {
 
-
-	class MyClass {
-
-	}
 
 
 	} // namespace Ex_01
