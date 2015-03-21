@@ -11,7 +11,7 @@ The script can also support an optional argument. If given a location as first a
 	
 
 ## cppclass.sh
-Automatically creates pre-formatted .h and .cpp file according to class name and namespaces
+Automatically creates pre-formatted .hpp and .cpp file according to class name and namespaces
 
 	$ ./cppclass.sh Day_01::Ex_01::MyClass
 	
