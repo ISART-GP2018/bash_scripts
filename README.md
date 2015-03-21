@@ -16,18 +16,22 @@ Automatically creates pre-formatted .h and .cpp file according to class name and
 	$ ./cppclass.sh Day_01::Ex_01::MyClass
 	
 Results in:
-#### includes/Day_01/Ex_01/MyClass.hpp
+#### include/Day_01/Ex_01/MyClass.hpp
 
-	#ifndef __MYCLASS_H_INCLUDED__
-	#define __MYCLASS_H_INCLUDED__
+	#ifndef __MYCLASS_HPP_INCLUDED__
+	#define __MYCLASS_HPP_INCLUDED__
 
 	namespace Day_01 {
 	namespace Ex_01 {
 
-	class MyClass {
+
+	class MyClass
+	{
 	public:
 		MyClass() = default;
+		MyClass(const MyClass&) = default;
 		~MyClass() = default;
+		auto	operator = (const MyClass&) -> MyClass& = default;
 		
 	}
 
@@ -35,13 +39,14 @@ Results in:
 	} // namespace Ex_01
 	} // namespace Day_01
 	
-	#endif // __MYCLASS_H_INCLUDED__
+	#endif // __MYCLASS_HPP_INCLUDED__
   
 #### src/Day_01/Ex_01/MyClass.cpp
 	#include "Day01/Ex_01/MyClass.hpp"
 	
 	namespace Day_01 {
 	namespace Ex_01 {
+
 
 
 

@@ -48,7 +48,7 @@ echo -e "public:" >> ${HEADERPATH}
 echo -e "    $CLASS() = default;" >> ${HEADERPATH}
 echo -e "    $CLASS(const $CLASS&) = default;" >> ${HEADERPATH}
 echo -e "    ~$CLASS() = default;" >> ${HEADERPATH}
-echo -e "    auto	operator = (const $CLASS&) -> &$CLASS = default;" >> ${HEADERPATH}
+echo -e "    auto	operator = (const $CLASS&) -> $CLASS& = default;" >> ${HEADERPATH}
 echo -e "" >> ${HEADERPATH}
 echo -e "};" >> ${HEADERPATH}
 
