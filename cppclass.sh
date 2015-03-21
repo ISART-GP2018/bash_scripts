@@ -22,16 +22,16 @@ for (( i = 0 ; i < ${#NAMESPACES[@]} ; i++ )) do
 done
 
 SRCPATH=src/${LOCALPATH}${CLASS}.cpp
-HEADERPATH=includes/${LOCALPATH}${CLASS}.hpp
+HEADERPATH=include/${LOCALPATH}${CLASS}.hpp
 
 mkdir -p "src/${LOCALPATH}"
-mkdir -p "includes/${LOCALPATH}"
+mkdir -p "include/${LOCALPATH}"
 
 # HEADER FILE
 # ===========
 
-echo -e "#ifndef __${CLASS^^}_H_INCLUDED__" > ${HEADERPATH}
-echo -e "#define __${CLASS^^}_H_INCLUDED__" >> ${HEADERPATH}
+echo -e "#ifndef __${CLASS^^}_HPP_INCLUDED__" > ${HEADERPATH}
+echo -e "#define __${CLASS^^}_HPP_INCLUDED__" >> ${HEADERPATH}
 echo -e "" >> ${HEADERPATH}
 
 if [ $NAMESPACE_COUNT -gt 0 ]
@@ -46,7 +46,9 @@ echo -e "class $CLASS" >> ${HEADERPATH}
 echo -e "{" >> ${HEADERPATH}
 echo -e "public:" >> ${HEADERPATH}
 echo -e "    $CLASS() = default;" >> ${HEADERPATH}
+echo -e "    $CLASS(const $CLASS&) = default;" >> ${HEADERPATH}
 echo -e "    ~$CLASS() = default;" >> ${HEADERPATH}
+echo -e "    auto	operator = (const $CLASS&) -> &$CLASS = default;" >> ${HEADERPATH}
 echo -e "" >> ${HEADERPATH}
 echo -e "};" >> ${HEADERPATH}
 
@@ -59,8 +61,8 @@ then
 fi
 
 echo -e "" >> ${HEADERPATH}
-echo -e "#endif // __${CLASS^^}_H_INCLUDED__" >> ${HEADERPATH}
-
+echo -e "#endif // __${CLASS^^}_HPP_INCLUDED__" >> ${HEADERPATH}
+echo "${HEADERPATH} created."
 
 # SOURCE FILE
 # ===========
@@ -83,3 +85,4 @@ then
         echo -e "} // namespace ${NAMESPACES[$(($i - 1))]}" >> ${SRCPATH}
     done
 fi
+echo "${SRCPATH} created."
